@@ -182,20 +182,20 @@ class ServicesBilling {
                 Item: Product,
               };
               //Creacion de la factura
-              console.log(factura, referenceType); 
-              // await axios 
-              //   .post(URL_FACTURACION, factura) 
-              //   .then((respuesta) => {
-              //     console.log(
-              //       "La Factura fue creada correctamente",
-              //       respuesta.status
-              //     );
-              //   })
-              //   .catch((error) => {
-              //     console.error(error);
-              //      res.status(422); 
-              //     throw boom.badGateway("The billing isn't created"); 
-              //   });
+              console.log(factura); 
+              await axios 
+                .post(URL_FACTURACION, factura) 
+                .then((respuesta) => {
+                  console.log(
+                    "La Factura fue creada correctamente",
+                    respuesta.status
+                  );
+                })
+                .catch((error) => {
+                  console.error(error);
+                   res.status(422); 
+                  throw boom.badGateway("The billing isn't created"); 
+                });
               res.sendStatus(201);
               return factura;
             } else {
