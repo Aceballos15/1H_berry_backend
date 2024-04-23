@@ -15,7 +15,7 @@ class ServicesBilling {
           amount_in_cents: response.amount_in_cents,
           reference: response.reference,
           Currency: response.Currency,
-          payment_method_type: response.payment_method_type,
+          payment_method_type: response.payment_method_type, 
           status: response.status,
           checksum: response.checksum,
         };
@@ -98,17 +98,18 @@ class ServicesBilling {
               //Recorrido a Productos para desestructurar los gramos de los productos
               productos.forEach((datos) => {
                 const gramos = datos.gramos.length;
-                // console.log(gramos)
+                console.log(gramos)
 
                 if (gramos > 1) {
                   for (let contador = 0; datos.gramos.length; ) {
                     let grams_id = datos.gramos[contador].ID_Product;
 
-                    let grams = datos.gramos[contador].Gramos;
+                    let grams = datos.gramos[contador].Gramos
 
-                    let price_product = datos.price / grams / gramos;
+                    let price_product = datos.gramos[contador].price_product;
 
-                    let total = price_product * grams * datos.quantity;
+                    let total = datos.gramos[contador].Total;
+
                     const product = {
                       Producto: grams_id,
                       Cantidad: grams,
@@ -136,8 +137,8 @@ class ServicesBilling {
 
                   let grams = datos.gramos[0].Gramos;
 
-                  let price_product = (datos.price * datos.quantity) / grams;
-                  let total = price_product * grams;
+                  let price_product = datos.gramos[0].price_product;
+                  let total = datos.gramos[0].Total; 
   
                   const product = {
                     Producto: grams_id,
@@ -183,19 +184,19 @@ class ServicesBilling {
               };
               //Creacion de la factura
               console.log(factura); 
-              await axios 
-                .post(URL_FACTURACION, factura) 
-                .then((respuesta) => {
-                  console.log(
-                    "La Factura fue creada correctamente",
-                    respuesta.status
-                  );
-                })
-                .catch((error) => {
-                  console.error(error);
-                   res.status(422); 
-                  throw boom.badGateway("The billing isn't created"); 
-                });
+              // await axios 
+              //   .post(URL_FACTURACION, factura) 
+              //   .then((respuesta) => {
+              //     console.log(
+              //       "La Factura fue creada correctamente",
+              //       respuesta.status
+              //     );
+              //   })
+              //   .catch((error) => {
+              //     console.error(error);
+              //      res.status(422); 
+              //     throw boom.badGateway("The billing isn't created"); 
+              //   });
               res.sendStatus(201);
               return factura;
             } else {
