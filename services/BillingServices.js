@@ -33,16 +33,16 @@ class ServicesBilling {
           try {
             const Ref = response.data.transaction.reference;
 
-            const URL_BERRY_GET = `https://nexyapp-f3a65a020e2a.herokuapp.com/zoho/v1/console/verificar_pedido_Report?where=Referencia=="${Ref}"`;
+            const URL_BERRY_GET = `https://zoho.accsolutions.tech/API/v1/verificar_pedido_Report?where=Referencia=="${Ref}"`;
 
             var Pedido = [];
 
             await axios.get(URL_BERRY_GET).then((res) => {
-              Pedido = res.data;
+              Pedido = res.data.data;
             });
 
             if (Pedido.length > 0) {
-              const URL_PATCH = `https://nexyapp-f3a65a020e2a.herokuapp.com/zoho/v1/console/verificar_pedido_Report/${Pedido[0].ID}`;
+              const URL_PATCH = `https://zoho.accsolutions.tech/API/v1/verificar_pedido_Report/${Pedido[0].ID}`;
               const Estado = {
                 Estado: Status,
               };
@@ -61,16 +61,16 @@ class ServicesBilling {
             const Ref = response.data.transaction.reference;
 
             //URL para la busqueda de los productos en zoho
-            const URL_BERRY_GET = `https://nexyapp-f3a65a020e2a.herokuapp.com/zoho/v1/console/verificar_pedido_Report?where=Referencia=="${Ref}"`;
+            const URL_BERRY_GET = `https://zoho.accsolutions.tech/API/v1/verificar_pedido_Report?where=Referencia=="${Ref}"`;
 
             const URL_FACTURACION =
-              "https://nexyapp-f3a65a020e2a.herokuapp.com/zoho/v1/console/Remision";
+              "https://zoho.accsolutions.tech/API/v1/Remision";
 
             //Traer los productos de berry
             await axios
               .get(URL_BERRY_GET)
               .then((res) => {
-                DataBerry = res.data;
+                DataBerry = res.data.data;
               })
               .catch((error) => {
               console.error(error); 
@@ -205,7 +205,7 @@ class ServicesBilling {
               throw boom.badData("This invoice isn't berry fields order");  
             }
           } else {
-            console.log(response.data);
+            console.log(response.data.data);
             console.log(`Status is ${Status}`);
             res.status(422);
             throw boom.badData(`Status is ${Status}`);  
