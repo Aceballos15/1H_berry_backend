@@ -57,7 +57,7 @@ class ServicesBilling {
             // throw boom.badData(`Status: ${Status}`); 
           }
 
-          if (response.data.transaction.status === "APPROVED") {
+          if (response.data.transaction.status === "APPROVED" && Pedido.Estado !== "APPROVED") {
             const Ref = response.data.transaction.reference;
 
             //URL para la busqueda de los productos en zoho
@@ -98,8 +98,7 @@ class ServicesBilling {
               //Recorrido a Productos para desestructurar los gramos de los productos
               productos.forEach((datos) => {
                 const gramos = datos.gramos.length;
-                console.log(gramos)
-
+                
                 if (gramos > 1) {
                   for (let contador = 0; datos.gramos.length; ) {
                     let grams_id = datos.gramos[contador].ID_Product;
@@ -202,10 +201,15 @@ class ServicesBilling {
             } else {
               console.log("This invoice isn't berry fields order");
               res.sendStatus(422); 
-              throw boom.badData("This invoice isn't berry fields order");  
+              // throw boom.badData("This invoice isn't berry fields order");  
             }
           } else {
-            console.log(response.data.data);
+
+            if (Pedido.Estado == "APPROVED") {
+              console.log("It's aprove"); 
+            }
+
+            console.log(response.data);
             console.log(`Status is ${Status}`);
             res.status(422);
             throw boom.badData(`Status is ${Status}`);  
