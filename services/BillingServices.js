@@ -57,7 +57,7 @@ class ServicesBilling {
             // throw boom.badData(`Status: ${Status}`); 
           }
 
-          if (response.data.transaction.status === "APPROVED" && Pedido.Estado !== "APPROVED") {
+          if (response.data.transaction.status === "APPROVED" && Pedido[0].Estado !== "APPROVED") {
             const Ref = response.data.transaction.reference;
 
             //URL para la busqueda de los productos en zoho
@@ -209,7 +209,7 @@ class ServicesBilling {
               console.log("It's aprove"); 
             }
 
-            console.log(response.data);
+            console.log(response.data.data);
             console.log(`Status is ${Status}`);
             res.status(422);
             throw boom.badData(`Status is ${Status}`);  
