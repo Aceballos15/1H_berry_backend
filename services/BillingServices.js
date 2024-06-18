@@ -205,14 +205,13 @@ class ServicesBilling {
             }
           } else {
 
-            if (Pedido.Estado == "APPROVED") {
+            if (Pedido[0].Estado == "APPROVED") {
               console.log("It's aprove"); 
             }
-
             console.log(response.data.data);
             console.log(`Status is ${Status}`);
             res.status(422);
-            throw boom.badData(`Status is ${Status}`);  
+            // throw boom.badData(`Status is ${Status}`);  
           }
         } else {
           console.log("A security problem occurred");
